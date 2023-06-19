@@ -1,101 +1,125 @@
-import { Card, CardapioContainer, Descricao, NomePrato } from './styles'
 import Button from '../Button'
-import pizza from '../../assets/images/pizza.png'
+import {
+  Card,
+  Descricao,
+  Fechar,
+  Foto,
+  Modal,
+  ModalContent,
+  NomePrato,
+  CardapioContainer
+} from './styles'
+import fechar from '../../assets/images/fechar.svg'
+import { useState } from 'react'
+import { CardapioItem } from '../../pages/Home'
 
-const CardapioList = () => {
+type Props = {
+  items: CardapioItem[]
+}
+
+interface modalState extends CardapioItem {
+  isVisible: boolean
+}
+
+export const formatPrice = (preco = 0) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(preco)
+}
+const CardapioCard = ({ items }: Props) => {
+  const getDescription = (description: string) => {
+    if (description.length > 160) {
+      return description.slice(0, 157) + '...'
+    }
+    return description
+  }
+  const [modal, setModal] = useState<modalState>({
+    isVisible: false,
+    descricao: '',
+    foto: '',
+    porcao: '',
+    nome: '',
+    id: 0,
+    preco: 0
+  })
+
+  const CloseModal = () => {
+    setModal({
+      isVisible: false,
+      descricao: '',
+      foto: '',
+      porcao: '',
+      nome: '',
+      id: 0,
+      preco: 0
+    })
+  }
+
   return (
-    <CardapioContainer className="container">
-      <Card>
-        <img src={pizza} />
-        <NomePrato>Pizza Marguerita</NomePrato>
-        <Descricao>
-          A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-          manjericão fresco e um toque de azeite. Sabor e simplicidade!
-        </Descricao>
-        <Button
-          size="big"
-          title="Clique aqui para adicionar ao carrinho"
-          type="button"
-        >
-          Mais detalhes
-        </Button>
-      </Card>
-      <Card>
-        <img src={pizza} />
-        <NomePrato>Pizza Marguerita</NomePrato>
-        <Descricao>
-          A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-          manjericão fresco e um toque de azeite. Sabor e simplicidade!
-        </Descricao>
-        <Button
-          size="big"
-          title="Clique aqui para adicionar ao carrinho"
-          type="button"
-        >
-          Mais detalhes
-        </Button>
-      </Card>
-      <Card>
-        <img src={pizza} />
-        <NomePrato>Pizza Marguerita</NomePrato>
-        <Descricao>
-          A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-          manjericão fresco e um toque de azeite. Sabor e simplicidade!
-        </Descricao>
-        <Button
-          size="big"
-          title="Clique aqui para adicionar ao carrinho"
-          type="button"
-        >
-          Mais detalhes
-        </Button>
-      </Card>
-      <Card>
-        <img src={pizza} />
-        <NomePrato>Pizza Marguerita</NomePrato>
-        <Descricao>
-          A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-          manjericão fresco e um toque de azeite. Sabor e simplicidade!
-        </Descricao>
-        <Button
-          size="big"
-          title="Clique aqui para adicionar ao carrinho"
-          type="button"
-        >
-          Mais detalhes
-        </Button>
-      </Card>
-      <Card>
-        <img src={pizza} />
-        <NomePrato>Pizza Marguerita</NomePrato>
-        <Descricao>
-          A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-          manjericão fresco e um toque de azeite. Sabor e simplicidade!
-        </Descricao>
-        <Button
-          size="big"
-          title="Clique aqui para adicionar ao carrinho"
-          type="button"
-        >
-          Mais detalhes
-        </Button>
-      </Card>
-      <Card>
-        <img src={pizza} />
-        <NomePrato>Pizza Marguerita</NomePrato>
-        <Descricao>
-          A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-          manjericão fresco e um toque de azeite. Sabor e simplicidade!
-        </Descricao>
-        <Button
-          size="big"
-          title="Clique aqui para adicionar ao carrinho"
-          type="button"
-        >
-          Mais detalhes
-        </Button>
-      </Card>
-    </CardapioContainer>
+    <>
+      <CardapioContainer className="container">
+        {items.map((cardapio) => (
+          <li key={cardapio.id}>
+            <Card>
+              <img src={cardapio.foto} />
+              <NomePrato>{cardapio.nome}</NomePrato>
+              <Descricao>{getDescription(cardapio.descricao)}</Descricao>
+              <Button
+                type="button"
+                size="big"
+                title="Clique aqui para ver mais detalhes"
+                onClick={() => {
+                  setModal({
+                    isVisible: true,
+                    descricao: cardapio.descricao,
+                    foto: cardapio.foto,
+                    nome: cardapio.nome,
+                    porcao: cardapio.porcao,
+                    id: cardapio.id,
+                    preco: cardapio.preco
+                  })
+                }}
+              >
+                Mais detalhes
+              </Button>
+            </Card>
+          </li>
+        ))}
+      </CardapioContainer>
+      <Modal className={modal.isVisible ? 'visivel' : ''}>
+        <ModalContent>
+          <Foto src={modal.foto} />
+          <div>
+            <h3>{modal.nome}</h3>
+            <Fechar
+              onClick={() => {
+                CloseModal()
+              }}
+              src={fechar}
+            />
+            <p>{modal.descricao}</p>
+            <p>
+              <span>Serve: {modal.porcao}</span>
+            </p>
+            <Button
+              type="button"
+              title="Clique aqui para adicionar este item ao carrinho"
+              size="small"
+            >
+              <>Adicionar ao carrinho - {formatPrice(modal.preco)}</>
+            </Button>
+          </div>
+        </ModalContent>
+        <div
+          className="overlay"
+          onClick={() => {
+            CloseModal()
+          }}
+        ></div>
+      </Modal>
+    </>
   )
 }
-export default CardapioList
+
+export default CardapioCard

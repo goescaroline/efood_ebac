@@ -5,7 +5,7 @@ export type Props = {
   title: string
   to?: string
   onClick?: () => void
-  children?: string | JSX.Element
+  children?: string | JSX.Element | JSX.Element[] | number
   size?: 'small' | 'big'
 }
 

@@ -8,6 +8,7 @@ type Props = {
   descricao: string
   avaliacao: number
   capa: string
+  tipo: string
   id: number
   infos: string[]
 }
