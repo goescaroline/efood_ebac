@@ -13,6 +13,7 @@ export const ButtonContainer = styled.button<Props>`
   text-align: center;
   width: ${(props) => (props.size === 'big' ? '100%' : '304px')};
   padding: ${(props) => (props.size === 'big' ? '4px 0' : '4px 6px')};
+  cursor: pointer;
 `
 export const ButtonLink = styled(Link)`
   background-color: ${color.orange};
@@ -21,4 +22,5 @@ export const ButtonLink = styled(Link)`
   font-weight: 700;
   border: none;
   text-decoration: none;
+  cursor: pointer;
 `

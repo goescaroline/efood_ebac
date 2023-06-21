@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { color } from '../../styles'
+import { breakpoints, color } from '../../styles'
 import { TagContainer } from '../Tag/styles'
 import { ButtonLink } from '../Button/styles'
 import { Link } from 'react-router-dom'
@@ -28,6 +28,10 @@ export const Card = styled(Link)`
 
   ${TagContainer} {
     margin-left: 8px;
+  }
+
+  @media (max-width: ${breakpoints.desktop}) {
+    max-width: 100%;
   }
 `
 
@@ -67,6 +71,17 @@ export const DescriptionCard = styled.p`
     position: absolute;
     left: 8px;
     bottom: 8px;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    height: 240px;
+
+    ${ButtonLink} {
+      padding: 4px 8px;
+      position: absolute;
+      left: 8px;
+      bottom: -30px;
+    }
   }
 `
 export const Infos = styled.div`

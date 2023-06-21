@@ -1,11 +1,24 @@
 import styled from 'styled-components'
-import { color } from '../../styles'
+import { breakpoints, color } from '../../styles'
+import { ButtonContainer } from '../Button/styles'
 
 export const CardapioContainer = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 32px;
   row-gap: 32px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    column-gap: 8px;
+    row-gap: 8px;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
 `
 
 export const Card = styled.div`
@@ -25,6 +38,15 @@ export const Card = styled.div`
 
   .container {
     background-color: ${color.backgroundColor};
+  }
+
+  @media (max-width: ${breakpoints.desktop}) {
+    width: 100%;
+  }
+
+  @media (max-width: ${breakpoints.phone}) {
+    width: 80%;
+    margin: 0 auto;
   }
 `
 export const Nome = styled.h3`
@@ -94,12 +116,28 @@ export const ModalContent = styled.div`
     line-height: 22px;
     margin-bottom: 16px;
   }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    display: block;
+    height: 80%;
+    max-width: 344px;
+    padding: 32px;
+
+    ${ButtonContainer} {
+      max-width: 100%;
+    }
+  }
 `
 export const Foto = styled.img`
   height: 280px;
   width: 280px;
   object-fit: cover;
   margin-right: 24px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    padding-bottom: 16px;
+    object-fit: cover;
+  }
 `
 
 export const Fechar = styled.img`

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { color } from '../../styles'
+import { breakpoints, color } from '../../styles'
 
 export const HeaderBar = styled.header`
   width: 100%;
@@ -16,16 +16,20 @@ export const HeaderBar = styled.header`
     justify-content: space-between;
   }
 
-  a {
-    text-decoration: none;
-    color: ${color.orange};
-    display: flex;
-  }
-
   span {
     margin-right: 8px;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    display: none;
   }
 `
 export const Logo = styled.div`
   position: absolute;
+`
+export const CartButton = styled.a`
+  text-decoration: none;
+  color: ${color.orange};
+  display: flex;
+  cursor: pointer;
 `

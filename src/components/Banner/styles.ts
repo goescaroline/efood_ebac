@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles'
 
 export const Image = styled.div`
   width: 100%;
@@ -27,4 +28,20 @@ export const Image = styled.div`
   h2 {
     text-align: center;
   }
+
+  @media (max-width: ${breakpoints.desktop}) {
+    height: 240px;
+
+    img {
+      padding-bottom: 32px;
+    }
+
+    @media (max-width: ${breakpoints.phone}) {
+      height: 130px;
+
+      h2 {
+        display: none;
+      }
+    }
+
 `

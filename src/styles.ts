@@ -7,6 +7,12 @@ export const color = {
   orange2: '#FFEBD9'
 }
 
+export const breakpoints = {
+  desktop: '1024px',
+  tablet: '768px',
+  phone: '495px'
+}
+
 export const GlobalCss = createGlobalStyle`
 * {
   margin: 0;
@@ -24,6 +30,16 @@ export const GlobalCss = createGlobalStyle`
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
+
+    @media (max-width: ${breakpoints.desktop}) {
+      max-width: 80%;
+      justify-content: center;
+    }
+
+    @media (max-width: ${breakpoints.phone}) {
+      max-width: 90%;
+      justify-content: center;
+    }
 }
 `
 export const Logo = styled.img`
