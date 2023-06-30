@@ -16,6 +16,11 @@ export const MenuContainer = styled.ul`
   }
 
   @media (max-width: ${breakpoints.tablet}) {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 16px;
+  }
+
+  @media (max-width: ${breakpoints.phone}) {
     grid-template-columns: 1fr;
     row-gap: 16px;
   }
@@ -44,9 +49,10 @@ export const Card = styled.div`
     width: 100%;
   }
 
-  @media (max-width: ${breakpoints.phone}) {
+  @media (max-width: ${breakpoints.tablet}) {
     width: 80%;
     margin: 0 auto;
+    height: 100%;
   }
 `
 export const Name = styled.h3`
@@ -118,14 +124,20 @@ export const ModalContent = styled.div`
   }
 
   @media (max-width: ${breakpoints.tablet}) {
-    display: block;
-    height: 80%;
-    max-width: 344px;
+    display: flex;
+    max-width: 100%;
     padding: 32px;
 
     ${ButtonContainer} {
       max-width: 100%;
     }
+  }
+  @media (max-width: ${breakpoints.phone}) {
+    display: block;
+    max-width: 80%;
+    height: 80%;
+    padding: 32px;
+    overflow: auto;
   }
 `
 export const Picture = styled.img`
@@ -137,6 +149,10 @@ export const Picture = styled.img`
   @media (max-width: ${breakpoints.tablet}) {
     padding-bottom: 16px;
     object-fit: cover;
+  }
+  @media (max-width: ${breakpoints.phone}) {
+    object-fit: cover;
+    width: 100%;
   }
 `
 

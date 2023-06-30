@@ -1,5 +1,6 @@
 import Banner from '../../components/Banner'
-import RestauranteLista from '../../components/RestauranteLista'
+import RestaurantList from '../../components/RestaurantList'
+
 import { useGetRestauranteQuery } from '../../services/api'
 
 export interface CardapioItem {
@@ -28,7 +29,7 @@ const Home = () => {
     return (
       <>
         <Banner />
-        <RestauranteLista restaurantes={restaurante} />
+        <RestaurantList restaurantes={restaurante} />
       </>
     )
   }

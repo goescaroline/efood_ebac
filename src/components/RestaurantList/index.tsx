@@ -1,12 +1,12 @@
 import { Restaurante } from '../../pages/Home'
-import RestauranteCard from '../RestauranteCard'
+import RestauranteCard from '../RestaurantCard'
 import { Lista } from './styles'
 
 type Props = {
   restaurantes: Restaurante[]
 }
 
-const RestauranteLista = ({ restaurantes }: Props) => {
+const RestaurantList = ({ restaurantes }: Props) => {
   const getTagRestaurante = (restaurante: Restaurante) => {
     const tags = []
     if (restaurante.destacado) {
@@ -38,4 +38,4 @@ const RestauranteLista = ({ restaurantes }: Props) => {
   )
 }
 
-export default RestauranteLista
+export default RestaurantList

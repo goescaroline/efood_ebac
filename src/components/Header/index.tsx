@@ -1,10 +1,13 @@
-import vector from '../../assets/images/Vector.svg'
-import { open } from '../../store/reducers/cart'
-import logo from '../../assets/images/logo.svg'
-import { HeaderBar, Logo, CartButton } from './styles'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+
 import { RootReducer } from '../../store'
+import { open } from '../../store/reducers/cart'
+
+import vector from '../../assets/images/Vector.svg'
+import logo from '../../assets/images/logo.svg'
+
+import * as S from './styles'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -15,20 +18,20 @@ const Header = () => {
   }
 
   return (
-    <HeaderBar style={{ backgroundImage: `url(${vector})` }}>
-      <Logo>
-        <Link to="/">
+    <S.HeaderBar style={{ backgroundImage: `url(${vector})` }}>
+      <S.Logo>
+        <Link title="Clique aqui para voltar para a home" to="/">
           <img src={logo} />
         </Link>
-      </Logo>
+      </S.Logo>
       <div className="container">
         <p>Restaurantes</p>
 
-        <CartButton onClick={openCart}>
+        <S.CartButton onClick={openCart}>
           <span>{items.length}</span>produto(s) no carrinho
-        </CartButton>
+        </S.CartButton>
       </div>
-    </HeaderBar>
+    </S.HeaderBar>
   )
 }
 

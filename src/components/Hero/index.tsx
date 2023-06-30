@@ -1,6 +1,8 @@
-import { Image } from './styles'
-import { useGetCardapioQuery } from '../../services/api'
 import { useParams } from 'react-router-dom'
+
+import { useGetCardapioQuery } from '../../services/api'
+
+import { Image } from './styles'
 
 const Hero = () => {
   const { id } = useParams()

@@ -38,6 +38,14 @@ export const SideBar = styled.aside`
   z-index: 1;
   padding: 32px 8px 0px 8px;
   width: 360px;
+
+  .empty-text {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 22px;
+    color: ${colors.lightOrange};
+    text-align: center;
+  }
 `
 export const Price = styled.p`
   font-weight: 700;
@@ -73,7 +81,7 @@ export const CartItem = styled.li`
     font-weight: 400;
   }
 `
-export const Lixeira = styled.img`
+export const Dumpster = styled.img`
   width: 16px;
   height: 16px;
   bottom: 8px;
@@ -117,7 +125,7 @@ export const InputGroup = styled.div<InputGroupProps>`
     border: 1px solid ${colors.lightOrange};
   }
 `
-export const CepContainer = styled.div`
+export const ZipCodeContainer = styled.div`
   display: flex;
   justify-content: space-between;
 

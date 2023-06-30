@@ -1,10 +1,13 @@
-import Button from '../Button'
-import * as S from './styles'
-import fechar from '../../assets/images/fechar.svg'
-import { useState } from 'react'
-import { CardapioItem, Restaurante } from '../../pages/Home'
 import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+
+import Button from '../Button'
+import close from '../../assets/images/fechar.svg'
+import { CardapioItem, Restaurante } from '../../pages/Home'
+
 import { add, open } from '../../store/reducers/cart'
+
+import * as S from './styles'
 
 type Props = {
   items: CardapioItem[]
@@ -99,7 +102,7 @@ const MenuList = ({ items }: Props) => {
               onClick={() => {
                 CloseModal()
               }}
-              src={fechar}
+              src={close}
             />
             <p>{modal.descricao}</p>
             <p>

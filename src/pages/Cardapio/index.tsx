@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom'
+
 import Header from '../../components/Header'
 import Hero from '../../components/Hero'
 import MenuList from '../../components/MenuList'
-import { useGetCardapioQuery } from '../../services/api'
 import Cart from '../../components/Cart'
+
+import { useGetCardapioQuery } from '../../services/api'
 
 const Cardapio = () => {
   const { id } = useParams()

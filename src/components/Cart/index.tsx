@@ -6,31 +6,18 @@ import React from 'react'
 
 import lixeira from '../../assets/images/lixeira.png'
 
-import {
-  CardContainer,
-  CartContainer,
-  CartItem,
-  CepContainer,
-  ConclusionOrder,
-  CustomButton,
-  DeliveryText,
-  ExpirationCard,
-  Form,
-  InputGroup,
-  Lixeira,
-  Overlay,
-  Price,
-  SideBar
-} from './styles'
+import * as S from './styles'
 import { RootReducer } from '../../store'
 import { close, remove } from '../../store/reducers/cart'
 
 import Button from '../Button'
 import { usePurchaseMutation } from '../../services/api'
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
   const [purchase, { isLoading, isError, data, isSuccess }] =
     usePurchaseMutation()
+
   const form = useFormik({
     initialValues: {
       fullName: '',
@@ -107,7 +94,6 @@ const Cart = () => {
     }
   })
 
-  console.log(form)
   const getErrorMessage = (fieldName: string, message?: string) => {
     const isTouched = fieldName in form.touched
     const isInvalid = fieldName in form.errors
@@ -137,6 +123,8 @@ const Cart = () => {
 
   const [payment, setPayment] = useState(false)
   const [goToDeliveryForm, setGoToDeliveryForm] = useState(false)
+  const [showCart, setShowCart] = useState(false)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const closeCart = () => {
@@ -146,7 +134,7 @@ const Cart = () => {
     setGoToDeliveryForm(true)
   }
   const goToCart = () => {
-    setGoToDeliveryForm(false)
+    setShowCart(true)
   }
 
   const submit = () => {
@@ -164,13 +152,13 @@ const Cart = () => {
   const total = items.reduce((total, prato) => total + prato.preco, 0)
 
   return (
-    <CartContainer className={isOpen ? 'is-open' : ''}>
-      <Overlay onClick={closeCart} />
-      <SideBar>
+    <S.CartContainer className={isOpen ? 'is-open' : ''}>
+      <S.Overlay onClick={closeCart} />
+      <S.SideBar>
         {payment ? (
           <>
             {isSuccess ? (
-              <ConclusionOrder>
+              <S.ConclusionOrder>
                 <h4>Pedido realizado - {data.orderId}</h4>
                 <p>
                   Estamos felizes em informar que seu pedido já está em processo
@@ -198,13 +186,13 @@ const Cart = () => {
                 >
                   Concluir
                 </Button>
-              </ConclusionOrder>
+              </S.ConclusionOrder>
             ) : (
-              <Form onSubmit={form.handleSubmit}>
-                <DeliveryText>
+              <S.Form onSubmit={form.handleSubmit}>
+                <S.DeliveryText>
                   Pagamento - Valor a pagar {formatPrice(total)}
-                </DeliveryText>
-                <InputGroup>
+                </S.DeliveryText>
+                <S.InputGroup>
                   <label htmlFor="cardDisplayName">Nome no cartão</label>
                   <input
                     id="cardDisplayName"
@@ -220,9 +208,9 @@ const Cart = () => {
                       form.errors.cardDisplayName
                     )}
                   </small>
-                </InputGroup>
-                <CardContainer>
-                  <InputGroup maxWidth="228px">
+                </S.InputGroup>
+                <S.CardContainer>
+                  <S.InputGroup maxWidth="228px">
                     <label htmlFor="cardNumber">Número no cartão</label>
                     <input
                       id="cardNumber"
@@ -235,8 +223,8 @@ const Cart = () => {
                     <small>
                       {getErrorMessage('cardNumber', form.errors.cardNumber)}
                     </small>
-                  </InputGroup>
-                  <InputGroup maxWidth="87px">
+                  </S.InputGroup>
+                  <S.InputGroup maxWidth="87px">
                     <label htmlFor="cardCode">CVV</label>
                     <input
                       id="cardCode"
@@ -249,10 +237,10 @@ const Cart = () => {
                     <small>
                       {getErrorMessage('cardCode', form.errors.cardCode)}
                     </small>
-                  </InputGroup>
-                </CardContainer>
-                <ExpirationCard>
-                  <InputGroup>
+                  </S.InputGroup>
+                </S.CardContainer>
+                <S.ExpirationCard>
+                  <S.InputGroup>
                     <label htmlFor="expiresMonth">Mês de vecimento</label>
                     <input
                       id="expiresMonth"
@@ -268,8 +256,8 @@ const Cart = () => {
                         form.errors.expiresMonth
                       )}
                     </small>
-                  </InputGroup>
-                  <InputGroup>
+                  </S.InputGroup>
+                  <S.InputGroup>
                     <label htmlFor="expiresYear">Ano de vencimento</label>
                     <input
                       id="expiresYear"
@@ -282,12 +270,11 @@ const Cart = () => {
                     <small>
                       {getErrorMessage('expiresYear', form.errors.expiresYear)}
                     </small>
-                  </InputGroup>
-                </ExpirationCard>
-
-                <CustomButton type="submit" onClick={() => form.handleSubmit}>
+                  </S.InputGroup>
+                </S.ExpirationCard>
+                <S.CustomButton type="submit" onClick={() => form.handleSubmit}>
                   Finalizar Pagamento
-                </CustomButton>
+                </S.CustomButton>
                 <Button
                   size="big"
                   type="button"
@@ -296,16 +283,16 @@ const Cart = () => {
                 >
                   Voltar para a edição do endereço
                 </Button>
-              </Form>
+              </S.Form>
             )}
           </>
         ) : (
           <>
             {goToDeliveryForm ? (
-              <Form onSubmit={form.handleSubmit}>
-                <DeliveryText>Entrega</DeliveryText>
+              <S.Form onSubmit={form.handleSubmit}>
+                <S.DeliveryText>Entrega</S.DeliveryText>
                 <div className="delivery-form">
-                  <InputGroup>
+                  <S.InputGroup>
                     <label htmlFor="fullName">Quem irá receber</label>
                     <input
                       id="fullName"
@@ -318,8 +305,8 @@ const Cart = () => {
                     <small>
                       {getErrorMessage('fullName', form.errors.fullName)}
                     </small>
-                  </InputGroup>
-                  <InputGroup>
+                  </S.InputGroup>
+                  <S.InputGroup>
                     <label htmlFor="deliveryAdress">Endereço</label>
                     <input
                       id="deliveryAdress"
@@ -335,8 +322,8 @@ const Cart = () => {
                         form.errors.deliveryAdress
                       )}
                     </small>
-                  </InputGroup>
-                  <InputGroup>
+                  </S.InputGroup>
+                  <S.InputGroup>
                     <label htmlFor="deliveryCity">Cidade</label>
                     <input
                       id="deliveryCity"
@@ -352,9 +339,9 @@ const Cart = () => {
                         form.errors.deliveryCity
                       )}
                     </small>
-                  </InputGroup>
-                  <CepContainer>
-                    <InputGroup>
+                  </S.InputGroup>
+                  <S.ZipCodeContainer>
+                    <S.InputGroup>
                       <label htmlFor="zipCode">CEP</label>
                       <input
                         id="zipCode "
@@ -367,8 +354,8 @@ const Cart = () => {
                       <small>
                         {getErrorMessage('zipCode', form.errors.zipCode)}
                       </small>
-                    </InputGroup>
-                    <InputGroup>
+                    </S.InputGroup>
+                    <S.InputGroup>
                       <label htmlFor="numberAdress">Número</label>
                       <input
                         id="numberAdress"
@@ -384,9 +371,9 @@ const Cart = () => {
                           form.errors.numberAdress
                         )}
                       </small>
-                    </InputGroup>
-                  </CepContainer>
-                  <InputGroup>
+                    </S.InputGroup>
+                  </S.ZipCodeContainer>
+                  <S.InputGroup>
                     <label htmlFor="complementAdress">
                       Complemento (opcional)
                     </label>
@@ -404,7 +391,7 @@ const Cart = () => {
                         form.errors.complementAdress
                       )}
                     </small>
-                  </InputGroup>
+                  </S.InputGroup>
                 </div>
                 <Button
                   size="big"
@@ -422,42 +409,51 @@ const Cart = () => {
                 >
                   Voltar para o carrinho
                 </Button>
-              </Form>
+              </S.Form>
             ) : (
-              <div>
-                <ul>
-                  {items &&
-                    items.map((item) => (
-                      <CartItem key={item.id}>
-                        <img src={item.foto} />
-                        <div>
-                          <h3>{item.nome}</h3>
-                          <p>{formatPrice(item.preco)}</p>
-                          <Lixeira
-                            onClick={() => removeItem(item.id)}
-                            src={lixeira}
-                          />
-                        </div>
-                      </CartItem>
-                    ))}
-                </ul>
-                <Price>
-                  Valor total <span>{formatPrice(getTotalPrice())}</span>
-                </Price>
-                <Button
-                  type="button"
-                  title={'Clique aqui para continuar'}
-                  size="big"
-                  onClick={checkout}
-                >
-                  Continuar com a entrega
-                </Button>
-              </div>
+              <>
+                {items.length > 0 ? (
+                  <div>
+                    <ul>
+                      {items &&
+                        items.map((item) => (
+                          <S.CartItem key={item.id}>
+                            <img src={item.foto} />
+                            <div>
+                              <h3>{item.nome}</h3>
+                              <p>{formatPrice(item.preco)}</p>
+                              <S.Dumpster
+                                onClick={() => removeItem(item.id)}
+                                src={lixeira}
+                              />
+                            </div>
+                          </S.CartItem>
+                        ))}
+                    </ul>
+                    <S.Price>
+                      Valor total <span>{formatPrice(getTotalPrice())}</span>
+                    </S.Price>
+                    <Button
+                      type="button"
+                      title={'Clique aqui para continuar'}
+                      size="big"
+                      onClick={checkout}
+                    >
+                      Continuar com a entrega
+                    </Button>
+                  </div>
+                ) : (
+                  <p className="empty-text">
+                    O carrinho está vazio, adicione pelo menos um produto para
+                    continuar com a compra
+                  </p>
+                )}
+              </>
             )}
           </>
         )}
-      </SideBar>
-    </CartContainer>
+      </S.SideBar>
+    </S.CartContainer>
   )
 }
 

@@ -10,7 +10,7 @@ export const colors = {
 export const breakpoints = {
   desktop: '1024px',
   tablet: '768px',
-  phone: '495px'
+  phone: '425px'
 }
 
 export const GlobalCss = createGlobalStyle`
