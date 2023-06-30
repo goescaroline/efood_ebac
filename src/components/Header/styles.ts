@@ -21,7 +21,7 @@ export const HeaderBar = styled.header`
   }
 
   @media (max-width: ${breakpoints.tablet}) {
-    display: none;
+    display: flex;
   }
 `
 export const Logo = styled.div`
