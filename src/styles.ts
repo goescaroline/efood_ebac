@@ -1,10 +1,10 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
-export const color = {
+export const colors = {
   orange: '#E66767',
   white: '#FFFFFF',
   backgroundColor: '#FFF8F2',
-  orange2: '#FFEBD9'
+  lightOrange: '#FFEBD9'
 }
 
 export const breakpoints = {
@@ -22,8 +22,8 @@ export const GlobalCss = createGlobalStyle`
   list-style: none;
 
   body {
-    background-color: ${color.backgroundColor};
-    color: ${color.orange};
+    background-color: ${colors.backgroundColor};
+    color: ${colors.orange};
   }
 
   .container {
@@ -52,5 +52,5 @@ export const Container = styled.div`
   margin: 0 auto;
   padding-top: 80px;
   padding-bottom: 120px;
-  background-color: ${color.backgroundColor};
+  background-color: ${colors.backgroundColor};
 `

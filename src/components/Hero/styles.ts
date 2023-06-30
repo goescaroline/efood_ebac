@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, color } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const Image = styled.div`
   height: 280px;
@@ -32,14 +32,14 @@ export const Image = styled.div`
     font-weight: 100;
     padding-top: 25px;
     padding-bottom: 156px;
-    color: ${color.white};
+    color: ${colors.white};
     line-height: 38px;
   }
 
   h2 {
     font-size: 32px;
     font-weight: 900;
-    color: ${color.white};
+    color: ${colors.white};
     z-index: 1;
   }
 

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import Header from '../../components/Header'
 import Hero from '../../components/Hero'
-import CardapioList from '../../components/CardapioList'
+import MenuList from '../../components/MenuList'
 import { useGetCardapioQuery } from '../../services/api'
 import Cart from '../../components/Cart'
 
@@ -18,7 +18,7 @@ const Cardapio = () => {
       <Header />
       <Hero />
       <Cart />
-      <CardapioList items={menu.cardapio} />
+      <MenuList items={menu.cardapio} />
     </>
   )
 }

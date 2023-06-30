@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { breakpoints, color } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
-export const CardapioContainer = styled.ul`
+export const MenuContainer = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 32px;
@@ -24,8 +24,8 @@ export const CardapioContainer = styled.ul`
 export const Card = styled.div`
   width: 320px;
   height: 338px;
-  background-color: ${color.orange};
-  color: ${color.backgroundColor};
+  background-color: ${colors.orange};
+  color: ${colors.backgroundColor};
   padding: 8px;
   display: block;
 
@@ -37,7 +37,7 @@ export const Card = styled.div`
   }
 
   .container {
-    background-color: ${color.backgroundColor};
+    background-color: ${colors.backgroundColor};
   }
 
   @media (max-width: ${breakpoints.desktop}) {
@@ -49,14 +49,14 @@ export const Card = styled.div`
     margin: 0 auto;
   }
 `
-export const Nome = styled.h3`
+export const Name = styled.h3`
   font-size: 16px;
   font-weight: 900;
   margin-bottom: 8px;
-  color: ${color.backgroundColor};
+  color: ${colors.backgroundColor};
   line-height: 18.75px;
 `
-export const Descricao = styled.p`
+export const Description = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
@@ -87,7 +87,7 @@ export const Modal = styled.div`
     background-color: rgba(0, 0, 0, 0.8);
   }
 `
-export const NomePrato = styled.h3`
+export const PlateName = styled.h3`
   font-size: 16px;
   font-weight: 900;
   margin-bottom: 8px;
@@ -97,10 +97,10 @@ export const ModalContent = styled.div`
   height: 344px;
   max-width: 1024px;
   width: 100%;
-  background-color: ${color.orange};
+  background-color: ${colors.orange};
   padding: 32px;
   display: inline-flex;
-  color: ${color.backgroundColor};
+  color: ${colors.backgroundColor};
   z-index: 1;
   position: relative;
 
@@ -128,7 +128,7 @@ export const ModalContent = styled.div`
     }
   }
 `
-export const Foto = styled.img`
+export const Picture = styled.img`
   height: 280px;
   width: 280px;
   object-fit: cover;
@@ -140,7 +140,7 @@ export const Foto = styled.img`
   }
 `
 
-export const Fechar = styled.img`
+export const Close = styled.img`
   width: 16px;
   height: 16px;
   right: 8px;

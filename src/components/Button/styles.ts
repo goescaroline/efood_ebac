@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import { color } from '../../styles'
 import { Link } from 'react-router-dom'
 
+import styled from 'styled-components'
+import { colors } from '../../styles'
 import { Props } from './index'
 
 export const ButtonContainer = styled.button<Props>`
-  background-color: ${color.orange2};
-  color: ${color.orange};
+  background-color: ${colors.lightOrange};
+  color: ${colors.orange};
   font-size: 14px;
   font-weight: 700;
   border: none;
@@ -16,8 +16,8 @@ export const ButtonContainer = styled.button<Props>`
   cursor: pointer;
 `
 export const ButtonLink = styled(Link)`
-  background-color: ${color.orange};
-  color: ${color.orange2};
+  background-color: ${colors.orange};
+  color: ${colors.lightOrange};
   font-size: 14px;
   font-weight: 700;
   border: none;

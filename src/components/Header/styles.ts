@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, color } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const HeaderBar = styled.header`
   width: 100%;
@@ -29,7 +29,7 @@ export const Logo = styled.div`
 `
 export const CartButton = styled.a`
   text-decoration: none;
-  color: ${color.orange};
+  color: ${colors.orange};
   display: flex;
   cursor: pointer;
 `

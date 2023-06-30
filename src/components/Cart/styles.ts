@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { color } from '../../styles'
+import { colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
 type InputGroupProps = {
@@ -28,9 +28,13 @@ export const CartContainer = styled.div`
   &.is-open {
     display: flex;
   }
+
+  small {
+    color: #fff;
+  }
 `
 export const SideBar = styled.aside`
-  background-color: ${color.orange};
+  background-color: ${colors.orange};
   z-index: 1;
   padding: 32px 8px 0px 8px;
   width: 360px;
@@ -39,14 +43,14 @@ export const Price = styled.p`
   font-weight: 700;
   font-size: 14px;
   justify-content: space-between;
-  color: ${color.orange2};
+  color: ${colors.lightOrange};
   display: flex;
   margin-top: 40px;
   margin-bottom: 16px;
 `
 export const CartItem = styled.li`
   display: flex;
-  background-color: ${color.orange2};
+  background-color: ${colors.lightOrange};
   position: relative;
   padding: 8px;
   margin-bottom: 16px;
@@ -91,7 +95,7 @@ export const Form = styled.form`
 export const DeliveryText = styled.h4`
   font-size: 16px;
   font-weight: bold;
-  color: ${color.orange2};
+  color: ${colors.lightOrange};
   margin-bottom: 16px;
 `
 export const InputGroup = styled.div<InputGroupProps>`
@@ -101,16 +105,16 @@ export const InputGroup = styled.div<InputGroupProps>`
   label {
     font-size: 14px;
     font-weight: bold;
-    color: ${color.orange2};
+    color: ${colors.lightOrange};
     display: block;
     margin: 8px 0 8px 0;
   }
 
   input {
     width: 100%;
-    background-color: ${color.orange2};
+    background-color: ${colors.lightOrange};
     height: 32px;
-    border: 1px solid ${color.orange2};
+    border: 1px solid ${colors.lightOrange};
   }
 `
 export const CepContainer = styled.div`
@@ -137,7 +141,7 @@ export const ExpirationCard = styled.div`
   }
 `
 export const ConclusionOrder = styled.div`
-  color: ${color.orange2};
+  color: ${colors.lightOrange};
 
   h4 {
     font-size: 16px;
@@ -150,4 +154,15 @@ export const ConclusionOrder = styled.div`
     line-height: 22px;
     margin-bottom: 16px;
   }
+`
+export const CustomButton = styled.button`
+  background-color: ${colors.lightOrange};
+  color: ${colors.orange};
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  text-align: center;
+  width: 100%;
+  padding: 4px 0;
+  cursor: pointer;
 `

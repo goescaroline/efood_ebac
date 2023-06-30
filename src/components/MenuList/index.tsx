@@ -1,14 +1,5 @@
 import Button from '../Button'
-import {
-  Card,
-  Descricao,
-  Fechar,
-  Foto,
-  Modal,
-  ModalContent,
-  NomePrato,
-  CardapioContainer
-} from './styles'
+import * as S from './styles'
 import fechar from '../../assets/images/fechar.svg'
 import { useState } from 'react'
 import { CardapioItem, Restaurante } from '../../pages/Home'
@@ -30,7 +21,7 @@ export const formatPrice = (preco = 0) => {
     currency: 'BRL'
   }).format(preco)
 }
-const CardapioCard = ({ items }: Props) => {
+const MenuList = ({ items }: Props) => {
   const dispatch = useDispatch()
   const addToCart = () => {
     dispatch(add(modal!))
@@ -68,13 +59,15 @@ const CardapioCard = ({ items }: Props) => {
 
   return (
     <>
-      <CardapioContainer className="container">
+      <S.MenuContainer className="container">
         {items.map((cardapio) => (
           <li key={cardapio.id}>
-            <Card>
+            <S.Card>
               <img src={cardapio.foto} />
-              <NomePrato>{cardapio.nome}</NomePrato>
-              <Descricao>{getDescription(cardapio.descricao)}</Descricao>
+              <S.PlateName>{cardapio.nome}</S.PlateName>
+              <S.Description>
+                {getDescription(cardapio.descricao)}
+              </S.Description>
               <Button
                 type="button"
                 size="big"
@@ -93,16 +86,16 @@ const CardapioCard = ({ items }: Props) => {
               >
                 Mais detalhes
               </Button>
-            </Card>
+            </S.Card>
           </li>
         ))}
-      </CardapioContainer>
-      <Modal className={modal.isVisible ? 'visivel' : ''}>
-        <ModalContent>
-          <Foto src={modal.foto} />
+      </S.MenuContainer>
+      <S.Modal className={modal.isVisible ? 'visivel' : ''}>
+        <S.ModalContent>
+          <S.Picture src={modal.foto} />
           <div>
             <h3>{modal.nome}</h3>
-            <Fechar
+            <S.Close
               onClick={() => {
                 CloseModal()
               }}
@@ -121,16 +114,16 @@ const CardapioCard = ({ items }: Props) => {
               <>Adicionar ao carrinho - {formatPrice(modal.preco)}</>
             </Button>
           </div>
-        </ModalContent>
+        </S.ModalContent>
         <div
           className="overlay"
           onClick={() => {
             CloseModal()
           }}
         ></div>
-      </Modal>
+      </S.Modal>
     </>
   )
 }
 
-export default CardapioCard
+export default MenuList

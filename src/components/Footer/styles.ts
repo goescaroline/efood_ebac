@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { color } from '../../styles'
+import { colors } from '../../styles'
 
 export const FooterSection = styled.div`
   height: 298px;
-  background-color: ${color.orange2};
+  background-color: ${colors.lightOrange};
   display: flex;
   text-align: center;
   justify-content: center;

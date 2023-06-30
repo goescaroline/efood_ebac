@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, color } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 import { TagContainer } from '../Tag/styles'
 import { ButtonLink } from '../Button/styles'
 import { Link } from 'react-router-dom'
@@ -9,8 +9,8 @@ export const Card = styled(Link)`
   width: 100%;
   height: 420px;
   display: block;
-  background-color: ${color.white};
-  color: ${color.orange};
+  background-color: ${colors.white};
+  color: ${colors.orange};
   text-decoration: none;
   position: relative;
 
@@ -23,7 +23,7 @@ export const Card = styled(Link)`
   }
 
   .container {
-    background-color: ${color.backgroundColor};
+    background-color: ${colors.backgroundColor};
   }
 
   ${TagContainer} {
@@ -59,7 +59,7 @@ export const DescriptionCard = styled.p`
   font-size: 14px;
   font-weight: 400;
   height: 203px;
-  border: 1px solid ${color.orange};
+  border: 1px solid ${colors.orange};
   border-top: none;
   padding: 8px;
   line-height: 22px;

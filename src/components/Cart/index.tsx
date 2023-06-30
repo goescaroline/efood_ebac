@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import React from 'react'
 
 import lixeira from '../../assets/images/lixeira.png'
 
@@ -11,6 +12,7 @@ import {
   CartItem,
   CepContainer,
   ConclusionOrder,
+  CustomButton,
   DeliveryText,
   ExpirationCard,
   Form,
@@ -27,7 +29,8 @@ import Button from '../Button'
 import { usePurchaseMutation } from '../../services/api'
 
 const Cart = () => {
-  const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
+  const [purchase, { isLoading, isError, data, isSuccess }] =
+    usePurchaseMutation()
   const form = useFormik({
     initialValues: {
       fullName: '',
@@ -42,58 +45,75 @@ const Cart = () => {
       expiresYear: '',
       cardCode: ''
     },
-    // validationSchema: Yup.object({
-    //   fullName: Yup.string()
-    //     .min(5, 'O nome precisa ter pelo menos 5 caracteres')
-    //     .required('Campo obrigatório'),
-    //   deliveryAdress: Yup.string().required('Campo obrigatório'),
-    //   deliveryCity: Yup.string().required('Campo obrigatório'),
-    //   zipCode: Yup.string()
-    //     .min(8, 'O cep precisa ter 8 digitos')
-    //     .required('Campo obrigatório'),
-    //   numberAdress: Yup.number().required('Campo obrigatório'),
-    //   complementAdress: Yup.string(),
-    //   cardDisplayName: Yup.string()
-    //     .min(5, 'O nome precisa ter no minimo 5 letras.')
-    //     .required('Campo Obrigatório.'),
-    //   cardNumber: Yup.string()
-    //     .min(19, 'Numero de cartão invalido.')
-    //     .max(19, 'Numero de cartão invalido.')
-    //     .required('Campo Obrigatório.'),
-    //   cardCode: Yup.string()
-    //     .min(3, 'Código do cartão invalido.')
-    //     .max(3, 'Código do cartão invalido.')
-    //     .required('Campo Obrigatório.'),
-    //   expiresMonth: Yup.number()
-    //     .min(2, 'Mês inválido.')
-    //     .required('Campo Obrigatório.'),
-    //   expiresYear: Yup.number()
-    //     .min(4, 'Ano inválido')
-    //     .required('Campo Obrigatório.')
-    // }),
+    validationSchema: Yup.object({
+      fullName: Yup.string()
+        .min(5, 'O nome precisa ter pelo menos 5 caracteres')
+        .required('Campo obrigatório'),
+      deliveryAdress: Yup.string().required('Campo obrigatório'),
+      deliveryCity: Yup.string().required('Campo obrigatório'),
+      zipCode: Yup.string()
+        .min(8, 'O cep precisa ter 8 digitos')
+        .required('Campo obrigatório'),
+      numberAdress: Yup.number().required('Campo obrigatório'),
+      complementAdress: Yup.string(),
+      cardDisplayName: Yup.string()
+        .min(5, 'O nome precisa ter no minimo 5 letras.')
+        .required('Campo Obrigatório.'),
+      cardNumber: Yup.string()
+        .min(19, 'Numero de cartão invalido.')
+        .max(19, 'Numero de cartão invalido.')
+        .required('Campo Obrigatório.'),
+      cardCode: Yup.string()
+        .min(3, 'Código do cartão invalido.')
+        .max(3, 'Código do cartão invalido.')
+        .required('Campo Obrigatório.'),
+      expiresMonth: Yup.number()
+        .min(2, 'Mês inválido.')
+        .required('Campo Obrigatório.'),
+      expiresYear: Yup.number()
+        .min(4, 'Ano inválido')
+        .required('Campo Obrigatório.')
+    }),
     onSubmit: (values) => {
-      console.log(values)
+      purchase({
+        products: [
+          {
+            id: 1,
+            price: 10
+          }
+        ],
+        delivery: {
+          receiver: values.fullName,
+          adress: {
+            description: values.deliveryAdress,
+            city: values.deliveryCity,
+            zipCode: values.zipCode,
+            number: Number(values.numberAdress),
+            complement: values.complementAdress
+          }
+        },
+        payment: {
+          card: {
+            name: values.cardDisplayName,
+            number: values.cardNumber,
+            code: Number(values.cardCode),
+            expires: {
+              month: Number(values.expiresMonth),
+              year: Number(values.expiresYear)
+            }
+          }
+        }
+      })
     }
   })
-  // const getErrorMessage = (fieldName: string, message?: string) => {
-  //   const isTouched = fieldName in form.touched
-  //   const isInvalid = fieldName in form.errors
 
-  //   if (isTouched && isInvalid) return message
-  //   return ''
-  // }
+  console.log(form)
+  const getErrorMessage = (fieldName: string, message?: string) => {
+    const isTouched = fieldName in form.touched
+    const isInvalid = fieldName in form.errors
 
-  const [goToDeliveryForm, setGoToDeliveryForm] = useState(false)
-
-  const checkout = () => {
-    setGoToDeliveryForm(true)
-  }
-  const goToCart = () => {
-    setGoToDeliveryForm(false)
-  }
-  const dispatch = useDispatch()
-  const closeCart = () => {
-    dispatch(close())
+    if (isTouched && isInvalid) return message
+    return ''
   }
 
   const formatPrice = (preco = 0) => {
@@ -116,33 +136,32 @@ const Cart = () => {
   }
 
   const [payment, setPayment] = useState(false)
+  const [goToDeliveryForm, setGoToDeliveryForm] = useState(false)
 
-  const setPaymentTrue = () => {
+  const dispatch = useDispatch()
+  const closeCart = () => {
+    dispatch(close())
+  }
+  const checkout = () => {
+    setGoToDeliveryForm(true)
+  }
+  const goToCart = () => {
+    setGoToDeliveryForm(false)
+  }
+
+  const submit = () => {
     setPayment(true)
   }
-  const submit = () => {
-    form.handleSubmit
-    setPaymentTrue()
-  }
-
-  const [showConclusion, setShowConclusion] = useState(false)
-  const finished = () => {
-    setShowConclusion(true)
-    form.handleSubmit
-  }
-
   const backToDeliveryForm = () => {
     setGoToDeliveryForm(true)
     setPayment(false)
-    setShowConclusion(false)
   }
-
   const finalized = () => {
     closeCart()
     setGoToDeliveryForm(false)
-    setShowConclusion(false)
     setPayment(false)
   }
+  const total = items.reduce((total, prato) => total + prato.preco, 0)
 
   return (
     <CartContainer className={isOpen ? 'is-open' : ''}>
@@ -150,9 +169,9 @@ const Cart = () => {
       <SideBar>
         {payment ? (
           <>
-            {showConclusion ? (
+            {isSuccess ? (
               <ConclusionOrder>
-                <h4>Pedido realizado - Order_id</h4>
+                <h4>Pedido realizado - {data.orderId}</h4>
                 <p>
                   Estamos felizes em informar que seu pedido já está em processo
                   de preparação e, em breve, será entregue no endereço
@@ -182,7 +201,9 @@ const Cart = () => {
               </ConclusionOrder>
             ) : (
               <Form onSubmit={form.handleSubmit}>
-                <DeliveryText>Pagamento - Valor a pagar R$ 190,90</DeliveryText>
+                <DeliveryText>
+                  Pagamento - Valor a pagar {formatPrice(total)}
+                </DeliveryText>
                 <InputGroup>
                   <label htmlFor="cardDisplayName">Nome no cartão</label>
                   <input
@@ -194,10 +215,10 @@ const Cart = () => {
                     value={form.values.cardDisplayName}
                   />
                   <small>
-                    {/* {getErrorMessage(
-                  'cardDisplayName',
-                  form.errors.cardDisplayName
-                )} */}
+                    {getErrorMessage(
+                      'cardDisplayName',
+                      form.errors.cardDisplayName
+                    )}
                   </small>
                 </InputGroup>
                 <CardContainer>
@@ -211,9 +232,9 @@ const Cart = () => {
                       onBlur={form.handleBlur}
                       value={form.values.cardNumber}
                     />
-                    {/* <small>
-                  {getErrorMessage('cardNumber', form.errors.cardNumber)}
-                </small> */}
+                    <small>
+                      {getErrorMessage('cardNumber', form.errors.cardNumber)}
+                    </small>
                   </InputGroup>
                   <InputGroup maxWidth="87px">
                     <label htmlFor="cardCode">CVV</label>
@@ -225,9 +246,9 @@ const Cart = () => {
                       onBlur={form.handleBlur}
                       value={form.values.cardCode}
                     />
-                    {/* <small>
-                  {getErrorMessage('cardCode', form.errors.cardCode)}
-                </small> */}
+                    <small>
+                      {getErrorMessage('cardCode', form.errors.cardCode)}
+                    </small>
                   </InputGroup>
                 </CardContainer>
                 <ExpirationCard>
@@ -241,12 +262,12 @@ const Cart = () => {
                       onBlur={form.handleBlur}
                       value={form.values.expiresMonth}
                     />
-                    {/* <small>
-                  {getErrorMessage(
-                    'expiresMonth',
-                    form.errors.expiresMonth
-                  )}
-                </small> */}
+                    <small>
+                      {getErrorMessage(
+                        'expiresMonth',
+                        form.errors.expiresMonth
+                      )}
+                    </small>
                   </InputGroup>
                   <InputGroup>
                     <label htmlFor="expiresYear">Ano de vencimento</label>
@@ -258,19 +279,15 @@ const Cart = () => {
                       onBlur={form.handleBlur}
                       value={form.values.expiresYear}
                     />
-                    {/* <small>
-                  {getErrorMessage('expiresYear', form.errors.expiresYear)}
-                </small> */}
+                    <small>
+                      {getErrorMessage('expiresYear', form.errors.expiresYear)}
+                    </small>
                   </InputGroup>
                 </ExpirationCard>
-                <Button
-                  size="big"
-                  type="submit"
-                  title="Finalizar pagamento"
-                  onClick={finished}
-                >
+
+                <CustomButton type="submit" onClick={() => form.handleSubmit}>
                   Finalizar Pagamento
-                </Button>
+                </CustomButton>
                 <Button
                   size="big"
                   type="button"
@@ -298,9 +315,9 @@ const Cart = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    {/* <small>
+                    <small>
                       {getErrorMessage('fullName', form.errors.fullName)}
-                    </small> */}
+                    </small>
                   </InputGroup>
                   <InputGroup>
                     <label htmlFor="deliveryAdress">Endereço</label>
@@ -312,12 +329,12 @@ const Cart = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    {/* <small>
+                    <small>
                       {getErrorMessage(
                         'deliveryAdress',
                         form.errors.deliveryAdress
                       )}
-                    </small> */}
+                    </small>
                   </InputGroup>
                   <InputGroup>
                     <label htmlFor="deliveryCity">Cidade</label>
@@ -329,12 +346,12 @@ const Cart = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    {/* <small>
+                    <small>
                       {getErrorMessage(
                         'deliveryCity',
                         form.errors.deliveryCity
                       )}
-                    </small> */}
+                    </small>
                   </InputGroup>
                   <CepContainer>
                     <InputGroup>
@@ -347,9 +364,9 @@ const Cart = () => {
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
                       />
-                      {/* <small>
+                      <small>
                         {getErrorMessage('zipCode', form.errors.zipCode)}
-                      </small> */}
+                      </small>
                     </InputGroup>
                     <InputGroup>
                       <label htmlFor="numberAdress">Número</label>
@@ -361,12 +378,12 @@ const Cart = () => {
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
                       />
-                      {/* <small>
+                      <small>
                         {getErrorMessage(
                           'numberAdress',
                           form.errors.numberAdress
                         )}
-                      </small> */}
+                      </small>
                     </InputGroup>
                   </CepContainer>
                   <InputGroup>
@@ -381,19 +398,19 @@ const Cart = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    {/* <small>
+                    <small>
                       {getErrorMessage(
                         'complementAdress',
                         form.errors.complementAdress
                       )}
-                    </small> */}
+                    </small>
                   </InputGroup>
                 </div>
                 <Button
                   size="big"
                   type="submit"
                   title="Continuar para pagamento"
-                  onClick={submit}
+                  onClick={() => submit()}
                 >
                   Continuar com o pagamento
                 </Button>

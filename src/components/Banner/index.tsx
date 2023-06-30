@@ -1,9 +1,10 @@
 import { Image } from './styles'
-import vetor from '../../assets/images/Vector.svg'
+
+import vector from '../../assets/images/Vector.svg'
 import logo from '../../assets/images/logo.svg'
 
 const Banner = () => (
-  <Image style={{ backgroundImage: `url(${vetor})` }}>
+  <Image style={{ backgroundImage: `url(${vector})` }}>
     <div className="container">
       <img src={logo} />
       <h2>
