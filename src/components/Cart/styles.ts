@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 
 type InputGroupProps = {
@@ -45,6 +45,10 @@ export const SideBar = styled.aside`
     line-height: 22px;
     color: ${colors.lightOrange};
     text-align: center;
+  }
+
+  @media (max-width: ${breakpoints.phone}) {
+    width: 80%;
   }
 `
 export const Price = styled.p`

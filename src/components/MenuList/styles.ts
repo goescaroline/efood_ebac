@@ -136,7 +136,7 @@ export const ModalContent = styled.div`
     display: block;
     max-width: 80%;
     height: 80%;
-    padding: 32px;
+    padding: 16px;
     overflow: auto;
   }
 `
