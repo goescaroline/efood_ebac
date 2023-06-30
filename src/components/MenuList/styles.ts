@@ -54,6 +54,12 @@ export const Card = styled.div`
     margin: 0 auto;
     height: 100%;
   }
+
+  @media (max-width: ${breakpoints.phone}) {
+    img {
+      width: 100%;
+    }
+  }
 `
 export const Name = styled.h3`
   font-size: 16px;
@@ -136,7 +142,7 @@ export const ModalContent = styled.div`
     display: block;
     max-width: 80%;
     height: 80%;
-    padding: 16px;
+    padding: 48px;
     overflow: auto;
   }
 `

@@ -81,7 +81,7 @@ export const DescriptionCard = styled.p`
   }
 
   @media (max-width: ${breakpoints.phone}) {
-    height: 308px;
+    height: 240px;
   }
 `
 export const Infos = styled.div`

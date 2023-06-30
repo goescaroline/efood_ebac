@@ -23,9 +23,24 @@ export const HeaderBar = styled.header`
   @media (max-width: ${breakpoints.tablet}) {
     display: flex;
   }
+
+  @media (max-width: ${breakpoints.phone}) {
+    display: flex;
+    height: 100px;
+    padding: 32px;
+
+    p {
+      display: none;
+    }
+  }
 `
 export const Logo = styled.div`
   position: absolute;
+
+  @media (max-width: ${breakpoints.phone}) {
+    position: relative;
+    margin-right: 48px;
+  }
 `
 export const CartButton = styled.a`
   text-decoration: none;
