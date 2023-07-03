@@ -26,8 +26,8 @@ export const HeaderBar = styled.header`
 
   @media (max-width: ${breakpoints.phone}) {
     display: flex;
-    height: 100px;
-    padding: 32px;
+    height: 90px;
+    padding-left: 32px;
 
     p {
       display: none;
@@ -40,6 +40,7 @@ export const Logo = styled.div`
   @media (max-width: ${breakpoints.phone}) {
     position: relative;
     margin-right: 48px;
+    padding: 32px 0;
   }
 `
 export const CartButton = styled.a`

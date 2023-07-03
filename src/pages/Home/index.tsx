@@ -1,4 +1,5 @@
 import Banner from '../../components/Banner'
+
 import RestaurantList from '../../components/RestaurantList'
 
 import { useGetRestauranteQuery } from '../../services/api'
@@ -24,16 +25,14 @@ export type Restaurante = {
 }
 
 const Home = () => {
-  const { data: restaurante } = useGetRestauranteQuery()
+  const { data: restaurante, isLoading } = useGetRestauranteQuery()
   if (restaurante) {
     return (
       <>
         <Banner />
-        <RestaurantList restaurantes={restaurante} />
+        <RestaurantList isLoading={isLoading} restaurantes={restaurante} />
       </>
     )
   }
-  return <h4>Carregando...</h4>
 }
-
 export default Home

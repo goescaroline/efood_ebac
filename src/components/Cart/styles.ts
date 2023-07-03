@@ -28,10 +28,6 @@ export const CartContainer = styled.div`
   &.is-open {
     display: flex;
   }
-
-  small {
-    color: #fff;
-  }
 `
 export const SideBar = styled.aside`
   background-color: ${colors.orange};
@@ -127,6 +123,10 @@ export const InputGroup = styled.div<InputGroupProps>`
     background-color: ${colors.lightOrange};
     height: 32px;
     border: 1px solid ${colors.lightOrange};
+
+    &.error {
+      border: 2px solid red;
+    }
   }
 `
 export const ZipCodeContainer = styled.div`

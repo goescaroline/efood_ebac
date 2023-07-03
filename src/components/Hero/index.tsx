@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useGetCardapioQuery } from '../../services/api'
 
 import { Image } from './styles'
+import Loader from '../Loader'
 
 const Hero = () => {
   const { id } = useParams()
@@ -18,7 +19,7 @@ const Hero = () => {
       </Image>
     )
   }
-  return <h4>Carregando...</h4>
+  return <Loader />
 }
 
 export default Hero
