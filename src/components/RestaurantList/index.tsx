@@ -1,4 +1,3 @@
-import { Restaurante } from '../../pages/Home'
 import Loader from '../Loader'
 import RestauranteCard from '../RestaurantCard'
 import { Lista } from './styles'

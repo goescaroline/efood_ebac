@@ -1,13 +1,17 @@
 import { useParams } from 'react-router-dom'
 
-import { useGetCardapioQuery } from '../../services/api'
+import { useGetMenuQuery } from '../../services/api'
 
 import { Image } from './styles'
 import Loader from '../Loader'
 
+type RestaurantParams = {
+  id: string
+}
+
 const Hero = () => {
-  const { id } = useParams()
-  const { data: restaurante } = useGetCardapioQuery(id!)
+  const { id } = useParams() as RestaurantParams
+  const { data: restaurante } = useGetMenuQuery(id)
 
   if (restaurante) {
     return (

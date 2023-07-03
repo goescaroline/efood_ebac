@@ -3,14 +3,18 @@ import { useParams } from 'react-router-dom'
 import Header from '../../components/Header'
 import Hero from '../../components/Hero'
 import MenuList from '../../components/MenuList'
+import Loader from '../../components/Loader'
 import Cart from '../../components/Cart'
 
-import { useGetCardapioQuery } from '../../services/api'
-import Loader from '../../components/Loader'
+import { useGetMenuQuery } from '../../services/api'
 
-const Cardapio = () => {
-  const { id } = useParams()
-  const { data: menu } = useGetCardapioQuery(id!)
+type MenuParams = {
+  id: string
+}
+
+const Menu = () => {
+  const { id } = useParams() as MenuParams
+  const { data: menu } = useGetMenuQuery(id)
 
   if (!menu) {
     return <Loader />
@@ -26,4 +30,4 @@ const Cardapio = () => {
   )
 }
 
-export default Cardapio
+export default Menu

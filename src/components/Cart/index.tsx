@@ -1,21 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import React from 'react'
+import InputMask from 'react-input-mask'
 
 import lixeira from '../../assets/images/lixeira.png'
 
 import * as S from './styles'
 import { RootReducer } from '../../store'
-import { close, remove } from '../../store/reducers/cart'
+import { close, remove, clear } from '../../store/reducers/cart'
 
 import Button from '../Button'
 import { usePurchaseMutation } from '../../services/api'
 
 const Cart = () => {
-  const [purchase, { isLoading, isError, data, isSuccess }] =
-    usePurchaseMutation()
+  const [purchase, { isLoading, data, isSuccess }] = usePurchaseMutation()
 
   const form = useFormik({
     initialValues: {
@@ -62,12 +61,10 @@ const Cart = () => {
     }),
     onSubmit: (values) => {
       purchase({
-        products: [
-          {
-            id: 1,
-            price: 10
-          }
-        ],
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.preco
+        })),
         delivery: {
           receiver: values.fullName,
           adress: {
@@ -92,7 +89,7 @@ const Cart = () => {
       })
     }
   })
-
+  console.log(form)
   const checkInputHasError = (fieldName: string) => {
     const isTouched = fieldName in form.touched
     const isInvalid = fieldName in form.errors
@@ -122,17 +119,22 @@ const Cart = () => {
 
   const [payment, setPayment] = useState(false)
   const [goToDeliveryForm, setGoToDeliveryForm] = useState(false)
-  const [showCart, setShowCart] = useState(false)
 
   const dispatch = useDispatch()
   const closeCart = () => {
     dispatch(close())
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(clear())
+    }
+  }, [dispatch, isSuccess])
+
   const checkout = () => {
     setGoToDeliveryForm(true)
   }
   const goToCart = () => {
-    setShowCart(true)
     setGoToDeliveryForm(false)
   }
 
@@ -156,7 +158,7 @@ const Cart = () => {
       <S.SideBar>
         {payment ? (
           <>
-            {isSuccess ? (
+            {isSuccess && data ? (
               <S.ConclusionOrder>
                 <h4>Pedido realizado - {data.orderId}</h4>
                 <p>
@@ -208,7 +210,8 @@ const Cart = () => {
                 <S.CardContainer>
                   <S.InputGroup maxWidth="228px">
                     <label htmlFor="cardNumber">Número no cartão</label>
-                    <input
+                    <InputMask
+                      mask="9999 9999 9999 9999"
                       id="cardNumber"
                       type="text"
                       name="cardNumber"
@@ -222,7 +225,8 @@ const Cart = () => {
                   </S.InputGroup>
                   <S.InputGroup maxWidth="87px">
                     <label htmlFor="cardCode">CVV</label>
-                    <input
+                    <InputMask
+                      mask="999"
                       id="cardCode"
                       type="text"
                       name="cardCode"
@@ -236,7 +240,8 @@ const Cart = () => {
                 <S.ExpirationCard>
                   <S.InputGroup>
                     <label htmlFor="expiresMonth">Mês de vecimento</label>
-                    <input
+                    <InputMask
+                      mask="99"
                       id="expiresMonth"
                       type="text"
                       name="expiresMonth"
@@ -250,7 +255,8 @@ const Cart = () => {
                   </S.InputGroup>
                   <S.InputGroup>
                     <label htmlFor="expiresYear">Ano de vencimento</label>
-                    <input
+                    <InputMask
+                      mask="9999"
                       id="expiresYear"
                       type="text"
                       name="expiresYear"
@@ -263,8 +269,12 @@ const Cart = () => {
                     />
                   </S.InputGroup>
                 </S.ExpirationCard>
-                <S.CustomButton type="submit" onClick={() => form.handleSubmit}>
-                  Finalizar Pagamento
+                <S.CustomButton
+                  type="submit"
+                  onClick={() => form.handleSubmit}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Finalizando compra...' : 'Finalizar pagamento'}
                 </S.CustomButton>
                 <Button
                   size="big"
@@ -326,7 +336,8 @@ const Cart = () => {
                   <S.ZipCodeContainer>
                     <S.InputGroup>
                       <label htmlFor="zipCode">CEP</label>
-                      <input
+                      <InputMask
+                        mask="99999-999"
                         id="zipCode "
                         type="text"
                         name="zipCode"

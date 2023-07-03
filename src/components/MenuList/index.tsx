@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 import Button from '../Button'
 import close from '../../assets/images/fechar.svg'
-import { CardapioItem, Restaurante } from '../../pages/Home'
 
 import { add, open } from '../../store/reducers/cart'
 

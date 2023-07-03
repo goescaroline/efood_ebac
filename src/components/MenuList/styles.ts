@@ -8,16 +8,11 @@ export const MenuContainer = styled.ul`
   column-gap: 32px;
   row-gap: 32px;
 
-  @media (max-width: ${breakpoints.desktop}) {
+  @media (max-width: ${breakpoints.tablet}) {
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     column-gap: 8px;
     row-gap: 8px;
-  }
-
-  @media (max-width: ${breakpoints.tablet}) {
-    grid-template-columns: 1fr 1fr;
-    row-gap: 16px;
   }
 
   @media (max-width: ${breakpoints.phone}) {
@@ -45,14 +40,14 @@ export const Card = styled.div`
     background-color: ${colors.backgroundColor};
   }
 
-  @media (max-width: ${breakpoints.desktop}) {
-    width: 100%;
-  }
-
   @media (max-width: ${breakpoints.tablet}) {
     width: 80%;
     margin: 0 auto;
     height: 100%;
+
+    img {
+      max-width: 100%;
+    }
   }
 
   @media (max-width: ${breakpoints.phone}) {
@@ -136,7 +131,7 @@ export const ModalContent = styled.div`
 
     ${ButtonContainer} {
       max-width: 100%;
-    }
+
   }
   @media (max-width: ${breakpoints.phone}) {
     display: block;
