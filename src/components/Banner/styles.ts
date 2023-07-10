@@ -3,7 +3,7 @@ import { breakpoints } from '../../styles'
 
 export const Image = styled.div`
   width: 100%;
-  height: 384px;
+
   display: block;
   background-repeat: no-repeat;
   background-size: cover;
@@ -18,6 +18,7 @@ export const Image = styled.div`
     flex-direction: column;
     align-items: center;
     z-index: 1;
+    padding-bottom: 40px;
   }
 
   img {

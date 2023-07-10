@@ -12,6 +12,7 @@ import { close, remove, clear } from '../../store/reducers/cart'
 
 import Button from '../Button'
 import { usePurchaseMutation } from '../../services/api'
+import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory'
 
 const Cart = () => {
   const [purchase, { isLoading, data, isSuccess }] = usePurchaseMutation()
@@ -117,6 +118,7 @@ const Cart = () => {
     dispatch(remove(id))
   }
 
+  const [errorIsVisible, setErrorIsVisible] = useState(false)
   const [payment, setPayment] = useState(false)
   const [goToDeliveryForm, setGoToDeliveryForm] = useState(false)
 
@@ -139,7 +141,11 @@ const Cart = () => {
   }
 
   const submit = () => {
-    setPayment(true)
+    if (!form.dirty && form.isValid) {
+      setErrorIsVisible(true)
+    } else {
+      setPayment(true)
+    }
   }
   const backToDeliveryForm = () => {
     setGoToDeliveryForm(true)
@@ -305,6 +311,7 @@ const Cart = () => {
                       className={checkInputHasError('fullName') ? 'error' : ''}
                     />
                   </S.InputGroup>
+
                   <S.InputGroup>
                     <label htmlFor="deliveryAdress">Endereço</label>
                     <input
@@ -385,8 +392,15 @@ const Cart = () => {
                   title="Continuar para pagamento"
                   onClick={() => submit()}
                 >
-                  Continuar com o pagamento
+                  Finalizar a compra
                 </Button>
+                {errorIsVisible ? (
+                  <p className="error-message">
+                    Preencha os campos acima para continuar
+                  </p>
+                ) : (
+                  ''
+                )}
                 <Button
                   size="big"
                   type="button"

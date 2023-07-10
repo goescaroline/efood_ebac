@@ -46,6 +46,13 @@ export const SideBar = styled.aside`
   @media (max-width: ${breakpoints.phone}) {
     width: 80%;
   }
+
+  .error-message {
+    color: ${colors.lightOrange};
+    font-size: 14px;
+    text-align: center;
+    padding-top: 8px;
+  }
 `
 export const Price = styled.p`
   font-weight: 700;

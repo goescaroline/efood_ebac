@@ -7,9 +7,20 @@ export type Props = {
   onClick?: () => void
   children?: string | JSX.Element | JSX.Element[] | number
   size?: 'small' | 'big'
+  disabled?: boolean
+  onPress?: () => void
 }
 
-const Button = ({ type, title, to, onClick, children, size }: Props) => {
+const Button = ({
+  type,
+  title,
+  to,
+  onClick,
+  children,
+  size,
+  disabled,
+  onPress
+}: Props) => {
   if (type === 'button' || type === 'submit') {
     return (
       <S.ButtonContainer
@@ -17,6 +28,8 @@ const Button = ({ type, title, to, onClick, children, size }: Props) => {
         title={title}
         onClick={onClick}
         size={size}
+        disabled={disabled}
+        onPress={onPress}
       >
         {children}
       </S.ButtonContainer>
